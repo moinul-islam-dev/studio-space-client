@@ -1,26 +1,144 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-indicator: var(--indicator);
+
+  /* Custom Brand Tokens (StudioSpace) */
+  --color-lime: var(--lime);
+  --color-lime-foreground: var(--lime-foreground);
+  --color-lavender: var(--lavender);
+  --color-lavender-foreground: var(--lavender-foreground);
+
+  /* Border Radius Tokens */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==================== LIGHT MODE ==================== */
+:root {
+  --radius: 0.75rem; /* 12px base */
+
+  --background: #F7F7F5;
+  --foreground: #0E0E10;
+
+  --card: #FFFFFF;
+  --card-foreground: #0E0E10;
+
+  --popover: #FFFFFF;
+  --popover-foreground: #0E0E10;
+
+  /* Primary CTA: Electric Lime with High-Contrast Dark Text */
+  --primary: #C6F24E;
+  --primary-foreground: #0E0E10;
+
+  /* Secondary Accent: Soft Lavender */
+  --secondary: #C3B2F7;
+  --secondary-foreground: #0E0E10;
+
+  --muted: #ECECE8;
+  --muted-foreground: #5C5E58;
+
+  --accent: #EFEFD9;
+  --accent-foreground: #0E0E10;
+
+  --destructive: #D96B52;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #E2E2DC;
+  --input: #E2E2DC;
+  --ring: #C6F24E;
+
+  /* Direct Brand Utilities */
+  --lime: #C6F24E;
+  --lime-foreground: #0E0E10;
+  --lavender: #C3B2F7;
+  --lavender-foreground: #0E0E10;
+
+  --indicator: #ccee7d;
+}
+
+/* ==================== DARK MODE (Primary Theme) ==================== */
+.dark {
+  --background: #0E0E10;
+  --foreground: #F2F2F0;
+
+  --card: #17171B;
+  --card-foreground: #F2F2F0;
+
+  --popover: #17171B;
+  --popover-foreground: #F2F2F0;
+
+  /* Primary CTA: Electric Lime */
+  --primary: #C6F24E;
+  --primary-foreground: #0E0E10;
+
+  /* Secondary Accent: Soft Lavender */
+  --secondary: #C3B2F7;
+  --secondary-foreground: #0E0E10;
+
+  --muted: #1F1F24;
+  --muted-foreground: #8C8E87;
+
+  --accent: #242B18; /* Dark Lime Tint for Icon Badges */
+  --accent-foreground: #C6F24E;
+
+  --destructive: #D96B52;
+  --destructive-foreground: #F2F2F0;
+
+  --border: #25252B;
+  --input: #25252B;
+  --ring: #C6F24E;
+
+  /* Direct Brand Utilities */
+  --lime: #C6F24E;
+  --lime-foreground: #0E0E10;
+  --lavender: #C3B2F7;
+  --lavender-foreground: #0E0E10;
+
+  --indicator: #C6F24E;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Brand Gradients */
+@layer utilities {
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, #C3B2F7 0%, #C6E096 50%, #C6F24E 100%);
+  }
+  .bg-brand-banner {
+    background: linear-gradient(115deg, #C3B2F7 0%, #C6E38B 45%, #C6F24E 100%);
+  }
 }
