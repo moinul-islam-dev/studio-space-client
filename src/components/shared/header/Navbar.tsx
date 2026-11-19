@@ -9,6 +9,7 @@ import { navItems } from "./nav-items";
 import { DesktopUserMenu } from "./DesktopUserMenu";
 import { NavLinks } from "./NavLinks";
 import { MobileNavMenu } from "./MobileNavMenu";
+import { ThemeToggle } from "@/components/theme-provider/ThemeToggle";
 
 export async function Navbar() {
   const session = await auth.api.getSession({
@@ -49,7 +50,10 @@ export async function Navbar() {
         <NavLinks items={navItems} isAuthenticated={Boolean(session)} />
 
         {/* Desktop Right Actions / User Menu */}
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex gap-6">
+
+          <ThemeToggle />
+
           <DesktopUserMenu
             user={
               user
