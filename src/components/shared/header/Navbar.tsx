@@ -49,12 +49,29 @@ export async function Navbar() {
         {/* Desktop Center Navigation with Active Route Indicators */}
         <NavLinks items={navItems} isAuthenticated={Boolean(session)} />
 
-        {/* Desktop Right Actions / User Menu */}
-        <div className="hidden lg:flex gap-6">
+        <div className="flex items-center gap-3">
 
           <ThemeToggle />
+          {/* Desktop Right Actions / User Menu */}
+          <div className="hidden lg:block">
 
-          <DesktopUserMenu
+
+            <DesktopUserMenu
+              user={
+                user
+                  ? {
+                    name: user.name,
+                    email: user.email,
+                    image: user.image ?? null,
+                  }
+                  : null
+              }
+            />
+          </div>
+
+          {/* Mobile Navigation */}
+          <MobileNavMenu
+            navItems={navItems}
             user={
               user
                 ? {
@@ -66,20 +83,6 @@ export async function Navbar() {
             }
           />
         </div>
-
-        {/* Mobile Navigation */}
-        <MobileNavMenu
-          navItems={navItems}
-          user={
-            user
-              ? {
-                name: user.name,
-                email: user.email,
-                image: user.image ?? null,
-              }
-              : null
-          }
-        />
       </div>
     </header>
   );
