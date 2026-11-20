@@ -82,8 +82,6 @@ export function DesktopUserMenu({ user }: DesktopUserMenuProps) {
   // Authenticated State: Avatar with Hover & Click Dropdown
   return (
     <div
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
       className="relative"
     >
       <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
@@ -94,7 +92,7 @@ export function DesktopUserMenu({ user }: DesktopUserMenuProps) {
               {initials}
             </AvatarFallback>
           </Avatar>
-          <span className="max-w-[120px] truncate text-[13px] font-semibold text-foreground">
+          <span className="max-w-30 truncate text-[13px] font-semibold text-foreground">
             {user.name}
           </span>
           <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />

@@ -20,7 +20,8 @@ export const signUp = async ({ name, email, password, image }: SignUpProps) => {
         const response = await auth.api.signUpEmail({
             body: {
                 name, email, password, image, callbackURL: "/"
-            }
+            },
+            headers: await headers()
         })
 
         return {

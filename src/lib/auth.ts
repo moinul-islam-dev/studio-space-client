@@ -13,6 +13,10 @@ if (!mongoUri) {
 }
 
 const client = new MongoClient(mongoUri);
+
+// Establish MongoDB connection
+await client.connect();
+
 const db = client.db("studio_space");
 
 

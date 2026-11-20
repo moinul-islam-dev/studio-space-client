@@ -196,7 +196,7 @@ const SignUpPage = () => {
         </section>
 
         {/* Right Sign-Up Card */}
-        <section className="mx-auto w-full max-w-[480px] lg:col-span-7">
+        <section className="mx-auto w-full max-w-120 lg:col-span-7">
           <Card className="overflow-hidden rounded-3xl border-border bg-card p-0 shadow-xl">
             {/* Top Brand Gradient Header */}
             <CardHeader className="bg-brand-gradient px-6 py-7 text-[#0E0E10] sm:px-8">
@@ -227,7 +227,7 @@ const SignUpPage = () => {
               </div>
 
               <div className="pt-4">
-                <CardTitle className="text-2xl font-extrabold tracking-[-0.025em] text-[#0E0E10]">
+                <CardTitle className="text-2xl font-extrabold tracking-tight text-[#0E0E10]">
                   Create your account
                 </CardTitle>
                 <CardDescription className="mt-1 text-xs font-medium text-[#0E0E10]/75">
