@@ -11,7 +11,7 @@ if (!mongoUri) {
 }
 
 const client = new MongoClient(mongoUri);
-const db = client.db("sport_nest_db");
+const db = client.db("studio_space");
 
 
 
@@ -56,15 +56,15 @@ export const auth = betterAuth({
     },
 
     plugins: [
-        jwt(),
+        // jwt(),
         nextCookies()
     ],
 
-    session: {
-        cookieCache: {
-            enabled: true,
-            strategy: "jwt",
-            maxAge: 7 * 24 * 60 * 60,
-        }
-    }
+    // session: {
+    //     cookieCache: {
+    //         enabled: true,
+    //         strategy: "jwt",
+    //         maxAge: 7 * 24 * 60 * 60,
+    //     }
+    // }
 });

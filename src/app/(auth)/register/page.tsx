@@ -59,7 +59,7 @@ const SignUpPage = () => {
     }));
   };
 
-  const handleSocialAuth = async (provider: "google" | "github") => {
+  const handleSocialAuth = async (provider: "google") => {
     setIsLoading(true);
     handleChange("error", "");
 
@@ -447,7 +447,7 @@ const SignUpPage = () => {
               </div>
 
               {/* Social Auth Pill Buttons (Side-by-Side on sm+) */}
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {/* <div className="grid grid-cols-1 gap-3 sm:grid-cols-2"> */}
                 <Button
                   type="button"
                   variant="outline"
@@ -459,17 +459,8 @@ const SignUpPage = () => {
                   <span>Google</span>
                 </Button>
 
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={isLoading}
-                  onClick={() => handleSocialAuth("github")}
-                  className="flex h-11 w-full items-center justify-center gap-2 rounded-full border-border bg-background/50 text-[13px] font-semibold text-foreground transition-colors hover:bg-muted"
-                >
-                  <FaGithub className="text-base" />
-                  <span>GitHub</span>
-                </Button>
-              </div>
+                
+              {/* </div> */}
 
               {/* Footer Switch Link */}
               <p className="mt-6 text-center text-xs text-muted-foreground">

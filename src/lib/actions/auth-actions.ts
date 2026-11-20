@@ -69,7 +69,7 @@ export const signIn = async ({ email, password }: SignInProps) => {
     }
 }
 
-export const signInSocial = async (provider: "github" | "google") => {
+export const signInSocial = async (provider: "google") => {
 
     try {
 
@@ -179,3 +179,59 @@ export const updateUser = async ({ name }: { name: string }) => {
     }
 
 }
+
+export const requestPasswordReset = async (email: string) => {
+    try {
+        await auth.api.requestPasswordReset({
+            body: {
+                email,
+                redirectTo: `${process.env.BETTER_AUTH_URL}/reset-password`,
+            },
+        });
+
+        return {
+            success: true,
+            message: "If an account exists, a password reset link has been sent.",
+        };
+
+    } catch (err) {
+        console.error("Password reset request error:", err);
+
+        return {
+            success: false,
+            message: "Unable to process your request.",
+        };
+    }
+};
+
+export const resetUserPassword = async ({
+    newPassword,
+    token,
+}: {
+    newPassword: string;
+    token: string;
+}) => {
+    try {
+        await auth.api.resetPassword({
+            body: {
+                newPassword,
+                token,
+            },
+        });
+
+        return {
+            success: true,
+            message: "Password reset successfully.",
+        };
+    } catch (err) {
+        console.error("Reset password error:", err);
+
+        return {
+            success: false,
+            message:
+                err instanceof Error
+                    ? err.message
+                    : "Failed to reset password.",
+        };
+    }
+};

@@ -105,18 +105,18 @@ export function DesktopUserMenu({ user }: DesktopUserMenuProps) {
           sideOffset={8}
           className="w-60 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-2xl"
         >
-          <DropdownMenuLabel className="px-2.5 py-2">
-            <p className="truncate text-sm font-bold text-foreground">
-              {user.name}
-            </p>
-            <p className="truncate text-xs font-normal text-muted-foreground">
-              {user.email}
-            </p>
-          </DropdownMenuLabel>
-
-          <DropdownMenuSeparator className="bg-border" />
-
           <DropdownMenuGroup className="space-y-0.5 py-1">
+            <DropdownMenuLabel className="px-2.5 py-2">
+              <p className="truncate text-sm font-bold text-foreground">
+                {user.name}
+              </p>
+              <p className="truncate text-xs font-normal text-muted-foreground">
+                {user.email}
+              </p>
+            </DropdownMenuLabel>
+
+            <DropdownMenuSeparator className="bg-border" />
+
             <DropdownMenuItem
               className="cursor-pointer rounded-xl px-2.5 py-2 text-[14px] font-medium text-foreground focus:bg-muted focus:text-foreground dark:focus:text-primary"
             >
