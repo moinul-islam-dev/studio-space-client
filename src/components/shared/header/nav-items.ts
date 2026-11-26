@@ -30,7 +30,7 @@ export const userMenuItems = [
   },
   {
     label: "Add New Studio",
-    href: "/studios/new",
+    href: "/dashboard/add-studio",
   },
   {
     label: "My Studio Listings",

@@ -127,7 +127,7 @@ export function DesktopUserMenu({ user }: DesktopUserMenuProps) {
             <DropdownMenuItem
               className="cursor-pointer rounded-xl px-2.5 py-2 text-[14px] font-medium text-foreground focus:bg-muted focus:text-foreground dark:focus:text-primary"
             >
-              <Link href="/studios/new" className="flex items-center gap-2.5">
+              <Link href="/dashboard/add-studio" className="flex items-center gap-2.5">
                 <PlusCircle className="h-4 w-4 text-secondary-foreground dark:text-secondary" />
                 Add New Studio
               </Link>

@@ -120,7 +120,7 @@ export function MobileNavMenu({ navItems, user }: MobileNavMenuProps) {
                   Dashboard
                 </Link>
                 <Link
-                  href="/studios/new"
+                  href="/dashboard/add-studio"
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-medium text-foreground hover:bg-card"
                 >
