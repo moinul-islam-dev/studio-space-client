@@ -33,6 +33,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
+
 
 interface User {
   id: string;
@@ -114,6 +116,8 @@ const AddStudioForm = ({ user }: AddStudioFormProps) => {
 
   // image upload ---------------------------------------------------
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+
 
   useEffect(() => {
     if (!formData.image) {
@@ -304,7 +308,7 @@ const AddStudioForm = ({ user }: AddStudioFormProps) => {
       }
     }
 
-     // ----------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------
 
     return "";
   };
@@ -320,84 +324,63 @@ const AddStudioForm = ({ user }: AddStudioFormProps) => {
       return;
     }
 
+    setLoading(true);
+
     try {
+      const { data, error: tokenError } = await authClient.token();
 
-      setLoading(true);
-
-      // Upload image to Cloudinary through Express
-      const imageFormData = new FormData();
-
-      imageFormData.append("image", formData.image!);
-
-      const imageResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/upload-image`,
-        {
-          method: "POST",
-          body: imageFormData,
-        }
-      );
-
-      const imageResult = await imageResponse.json();
-
-      if (!imageResponse.ok) {
-        throw new Error(imageResult.message || "Image upload failed.");
+      if (tokenError || !data?.token) {
+        throw new Error("Failed to retrieve authentication token.");
       }
 
+      const payload = new FormData();
 
-      const { imageUrl, publicId } = imageResult;
+      payload.append("image", formData.image!);
+      payload.append("title", formData.title.trim());
+      payload.append("category", formData.category);
+      payload.append("hourlyRate", formData.hourlyRate);
+      payload.append("securityDeposit", formData.securityDeposit);
+      payload.append("capacity", formData.capacity);
+      payload.append("location", formData.location.trim());
+      payload.append("address", formData.address.trim());
+      payload.append("amenities", JSON.stringify(formData.amenities));
+      payload.append("overview", formData.overview.trim());
+      payload.append(
+        "availableTimeRanges",
+        JSON.stringify(formData.availableTimeRanges)
+      );
 
-      // Prepare studio data
-      const studioData = {
-        title: formData.title.trim(),
-        category: formData.category,
-        imageUrl: imageResult.imageUrl,
-        publicId: imageResult.publicId,
-        hourlyRate: Number(formData.hourlyRate),
-        securityDeposit: Number(formData.securityDeposit),
-        capacity: Number(formData.capacity),
-        location: formData.location.trim(),
-        address: formData.address.trim(),
-        amenities: formData.amenities,
-        overview: formData.overview.trim(),
-        availableTimeRanges: formData.availableTimeRanges,
-      };
-
-      // Save studio data
-      const studioResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/add-studio`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/add-studio`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${data.token}`,
           },
-          body: JSON.stringify(studioData),
+          body: payload,
         }
       );
 
-      const studioResult = await studioResponse.json();
+      const result = await response.json();
 
-      if (!studioResponse.ok) {
-        throw new Error(studioResult.message || "Failed to create studio.");
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to create studio.");
       }
 
-      setFormData(initialFormData);
+      toast.success(result.message);
 
-      router.push("/my-listings");
-      router.refresh();
-
-    }
-
-    catch (err) {
+    } 
+    
+    catch (error) {
       const message =
-        err instanceof Error ? err.message : "Something went wrong.";
-      setError(message);
-      toast.error(message, { toasterId: "dashboard" });
-    }
+        error instanceof Error ? error.message : "Something went wrong.";
 
+      setError(message);
+    } 
+    
     finally {
       setLoading(false);
     }
-
   };
 
   const labelClasses = "gap-1 text-sm font-medium";

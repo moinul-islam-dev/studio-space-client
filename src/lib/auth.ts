@@ -27,11 +27,12 @@ const githubClientSECRET = process.env.GITHUB_CLIENT_SECRET;
 const googleClientID = process.env.GOOGLE_CLIENT_ID;
 const googleClientSECRET = process.env.GOOGLE_CLIENT_SECRET;
 
+const authBaseURL = process.env.BETTER_AUTH_URL || "http://localhost:3000";
 
 
 export const auth = betterAuth({
 
-    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000", //different from docs
+    baseURL: authBaseURL,
 
     database: mongodbAdapter(db, {
         client,
@@ -269,15 +270,23 @@ export const auth = betterAuth({
     },
 
     plugins: [
-        // jwt(),
+        jwt({
+            disableSettingJwtHeader: true,
+            jwt: {
+                issuer: authBaseURL,
+                audience: authBaseURL,
+                // Express uses the signed subject, not profile data.
+                definePayload: () => ({}),
+            },
+        }),
         nextCookies()
     ],
 
-    // session: {
-    //     cookieCache: {
-    //         enabled: true,
-    //         strategy: "jwt",
-    //         maxAge: 7 * 24 * 60 * 60,
-    //     }
-    // }
+    session: {
+        cookieCache: {
+            enabled: true,
+            strategy: "jwt",
+            maxAge: 7 * 24 * 60 * 60,
+        }
+    }
 });
