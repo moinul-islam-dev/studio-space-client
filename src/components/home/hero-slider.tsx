@@ -186,18 +186,7 @@ export function HeroSlider() {
                         </Link>
                       </Button>
 
-                      <Button
-                        variant="outline"
-                        className="h-12 rounded-full border-white/20 bg-[#17171B]/75 px-7 text-[14px] font-semibold text-white backdrop-blur-md transition-all hover:border-primary/60 hover:bg-[#17171B] hover:text-primary"
-                      >
-                        <Link
-                          href="/studios"
-                          className="inline-flex items-center gap-2"
-                        >
-                          <Plus className="h-4 w-4 shrink-0 text-primary" />
-                          <span>Host Your Space</span>
-                        </Link>
-                      </Button>
+                      
                     </div>
                   </div>
                 </div>

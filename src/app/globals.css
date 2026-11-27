@@ -133,12 +133,162 @@
   }
 }
 
+
 /* Custom Brand Gradients */
 @layer utilities {
   .bg-brand-gradient {
-    background: linear-gradient(135deg, #C3B2F7 0%, #C6E096 50%, #C6F24E 100%);
+    background: linear-gradient(
+      135deg,
+      #C3B2F7 0%,
+      #C6E096 50%,
+      #C6F24E 100%
+    );
   }
+
   .bg-brand-banner {
-    background: linear-gradient(115deg, #C3B2F7 0%, #C6E38B 45%, #C6F24E 100%);
+    background: linear-gradient(
+      115deg,
+      #C3B2F7 0%,
+      #C6E38B 45%,
+      #C6F24E 100%
+    );
   }
+
+ /* StudioSpace Animated Glow Button */
+@keyframes studio-glow-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.studio-glow-btn {
+  cursor: pointer;
+  border-radius: 16px;
+  border: none;
+  padding: 2px;
+  background: #25252B;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.studio-glow-btn:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px rgba(198, 242, 78, 0.22);
+}
+
+.studio-glow-btn:active:not(:disabled) {
+  transform: translateY(0px) scale(0.985);
+}
+
+/* Rotating Border Light Strictly Clipped Inside the 2px Border */
+.studio-glow-btn::after {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  top: 50%;
+  left: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 210deg,
+    #C3B2F7 265deg,
+    #C6F24E 320deg,
+    transparent 360deg
+  );
+  z-index: 0;
+  pointer-events: none;
+  animation: studio-glow-rotate 3.5s linear infinite;
+}
+
+.studio-glow-blob {
+  position: absolute;
+  width: 85px;
+  height: 100%;
+  border-radius: 16px;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(
+    circle 65px at 0% 100%,
+    #C6F24E,
+    rgba(195, 178, 247, 0.55),
+    transparent
+  );
+  z-index: 1;
+  pointer-events: none;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.4s ease;
+}
+
+.studio-glow-btn:hover:not(:disabled) .studio-glow-blob {
+  width: 115px;
+  transform: translateX(8px);
+}
+
+.studio-glow-inner {
+  padding: 11px 28px;
+  border-radius: 14px;
+  color: #F2F2F0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  z-index: 2;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: radial-gradient(
+    circle 90px at 80% -50%,
+    #3A3D32,
+    #0E0E10
+  );
+}
+
+.studio-glow-inner::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 14px;
+  background: radial-gradient(
+    circle 65px at 0% 100%,
+    rgba(198, 242, 78, 0.16),
+    rgba(195, 178, 247, 0.1),
+    transparent
+  );
+  position: absolute;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.studio-glow-btn:hover:not(:disabled) .studio-glow-inner::before {
+  background: radial-gradient(
+    circle 85px at 15% 100%,
+    rgba(198, 242, 78, 0.26),
+    rgba(195, 178, 247, 0.14),
+    transparent
+  );
+}
+
+.studio-glow-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-glow-btn::after {
+    animation: none;
+  }
+}
 }
